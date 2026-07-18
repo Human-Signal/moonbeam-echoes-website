@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moonbeam Echoes</title>
+  <meta name="description" content="Moonbeam Echoes — collect the seven colored moonbeams to unlock what the Ancients sealed away. A game by Human Signal Games." />
+
+  <!-- Open Graph / social -->
+  <meta property="og:title" content="Moonbeam Echoes" />
+  <meta property="og:description" content="Collect the seven colored moonbeams to unlock what the Ancients sealed away." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://moonbeamechoes.com" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --roy: #ff4d4d;
+      --org: #ff9a3d;
+      --yel: #ffe14d;
+      --grn: #5ce68a;
+      --blu: #4db8ff;
+      --ind: #6d7bff;
+      --vio: #b46dff;
+      --ink: #05060f;
+      --ink-2: #0b0e1f;
+      --text: #e8ecff;
+      --muted: #9aa3c7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 50% -10%, #141a3a 0%, var(--ink-2) 45%, var(--ink) 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Starfield layers */
+    .stars, .stars2 {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .stars {
+      background-image:
+        radial-gradient(1.6px 1.6px at 20% 30%, #ffffff 50%, transparent),
+        radial-gradient(1.4px 1.4px at 70% 20%, #dfe6ff 50%, transparent),
+        radial-gradient(1.2px 1.2px at 40% 70%, #ffffff 50%, transparent),
+        radial-gradient(1.6px 1.6px at 85% 60%, #cbd6ff 50%, transparent),
+        radial-gradient(1.2px 1.2px at 55% 45%, #ffffff 50%, transparent),
+        radial-gradient(1.4px 1.4px at 12% 80%, #eaf0ff 50%, transparent),
+        radial-gradient(1.2px 1.2px at 90% 88%, #ffffff 50%, transparent),
+        radial-gradient(1.3px 1.3px at 30% 15%, #ffffff 50%, transparent);
+      animation: twinkle 6s ease-in-out infinite alternate;
+    }
+    .stars2 {
+      background-image:
+        radial-gradient(1px 1px at 15% 55%, #ffffff 50%, transparent),
+        radial-gradient(1px 1px at 60% 75%, #cdd8ff 50%, transparent),
+        radial-gradient(1px 1px at 80% 35%, #ffffff 50%, transparent),
+        radial-gradient(1px 1px at 45% 25%, #e7ecff 50%, transparent),
+        radial-gradient(1px 1px at 25% 90%, #ffffff 50%, transparent);
+      opacity: .6;
+      animation: twinkle 9s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes twinkle { from { opacity: .35; } to { opacity: .9; } }
+
+    main {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+    }
+
+    /* Moon + prism beam */
+    .emblem {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin-bottom: 2.2rem;
+    }
+    .moon {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffffff 0%, #dfe4ff 40%, #9aa6e6 100%);
+      box-shadow:
+        0 0 40px 8px rgba(180, 200, 255, .45),
+        0 0 120px 30px rgba(120, 140, 255, .25),
+        inset -18px -12px 40px rgba(60, 70, 130, .55);
+      animation: float 7s ease-in-out infinite;
+    }
+    .moon::before {
+      content: "";
+      position: absolute;
+      top: 22%; left: 55%;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: rgba(120, 130, 190, .35);
+      box-shadow: -34px 20px 0 -6px rgba(120,130,190,.28), 10px 40px 0 -10px rgba(120,130,190,.25);
+    }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    .beams {
+      position: absolute;
+      left: 50%;
+      bottom: -14px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 4px;
+      filter: blur(.4px);
+    }
+    .beams span {
+      display: block;
+      width: 7px;
+      height: 120px;
+      border-radius: 6px;
+      opacity: .85;
+      transform-origin: top center;
+      animation: sway 5s ease-in-out infinite;
+    }
+    .beams span:nth-child(1){ background: linear-gradient(var(--roy), transparent); transform: rotate(-18deg); animation-delay: 0s;}
+    .beams span:nth-child(2){ background: linear-gradient(var(--org), transparent); transform: rotate(-12deg); animation-delay: .2s;}
+    .beams span:nth-child(3){ background: linear-gradient(var(--yel), transparent); transform: rotate(-6deg); animation-delay: .4s;}
+    .beams span:nth-child(4){ background: linear-gradient(var(--grn), transparent); transform: rotate(0deg); animation-delay: .6s;}
+    .beams span:nth-child(5){ background: linear-gradient(var(--blu), transparent); transform: rotate(6deg); animation-delay: .8s;}
+    .beams span:nth-child(6){ background: linear-gradient(var(--ind), transparent); transform: rotate(12deg); animation-delay: 1s;}
+    .beams span:nth-child(7){ background: linear-gradient(var(--vio), transparent); transform: rotate(18deg); animation-delay: 1.2s;}
+    @keyframes sway { 0%,100% { opacity: .55; } 50% { opacity: .95; } }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: clamp(2.6rem, 8vw, 5rem);
+      letter-spacing: .04em;
+      line-height: 1.05;
+      background: linear-gradient(90deg, var(--roy), var(--org), var(--yel), var(--grn), var(--blu), var(--ind), var(--vio));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 60px rgba(150, 170, 255, .25);
+      margin-bottom: 1rem;
+    }
+
+    .tagline {
+      max-width: 40ch;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.6vw, 1.2rem);
+      line-height: 1.6;
+      margin-bottom: 2.6rem;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .95rem 2rem;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #0a0c1a;
+      background: linear-gradient(135deg, #ffffff, #cdd6ff);
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(120, 140, 255, .35);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(150, 170, 255, .55);
+    }
+    .cta svg { width: 20px; height: 20px; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.6rem;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+    footer a { color: var(--text); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.25); }
+    footer a:hover { border-color: var(--text); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .moon, .beams span, .stars, .stars2 { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+
+  <main>
+    <div class="emblem" aria-hidden="true">
+      <div class="moon"></div>
+      <div class="beams">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <h1>Moonbeam Echoes</h1>
+    <p class="tagline">
+      Collect the seven colored moonbeams and choose what to do with what
+      the Ancients sealed away.
+    </p>
+
+    <a class="cta" href="https://humansignalgames.itch.io/moonbeam-echoes" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 12h8M12 8v8"/></svg>
+      Play on itch.io
+    </a>
+  </main>
+
+  <footer>
+    A game by <a href="https://humansignalgames.itch.io" target="_blank" rel="noopener">Human Signal Games</a>
+  </footer>
+</body>
+</html>
