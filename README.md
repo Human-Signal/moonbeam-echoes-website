@@ -10,7 +10,7 @@ Only the `docs/` folder is published to the website. Everything else in this
 repo (including this README) stays private to the repo and is **not** served.
 
 - `docs/index.html` — single-page site (all CSS inline, no build step)
-- `docs/favicon.svg` — moon + ROYGBIV prism icon
+- `docs/favicon.png` / `docs/favicon.ico` / `docs/apple-touch-icon.png` — ME monogram (from `art/logos/moonbeam echos ME logo.png` via the game repo’s `tools/generate_app_icons.py`)
 - `docs/CNAME` — custom domain for GitHub Pages (`moonbeamechoes.com`)
 - `docs/.nojekyll` — disables Jekyll processing
 - everything at the repo root — internal files, not published
